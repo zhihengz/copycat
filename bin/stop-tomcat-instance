@@ -1,0 +1,14 @@
+#!/bin/sh
+
+instance=$1
+. $HOME/.tomcat/etc/tomcatrc
+. $HOME/.tomcat/etc/conf.d/${instance}.conf
+
+$CATALINA_HOME/bin/shutdown.sh
+if [ -f $CATALINA_PID ]; then
+  pid=`cat $CATALINA_PID`
+  echo "hard killing tomcat $pid"
+  kill -9 $pid && rm -f $CATALINA_PID
+fi
+
+

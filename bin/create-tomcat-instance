@@ -1,0 +1,43 @@
+#!/bin/sh
+
+progname=`basename $0`
+
+if [ $# -lt 1 ]; then
+  usage
+  exit 1
+fi
+
+instance=$1
+. ~/.tomcat/etc/tomcatrc
+
+base=${TC_INSTANCE_BASE}/$instance
+
+if [ -d ${base} ]; then
+  echo "$instance is already existed, aborted!"
+  exit 1
+fi
+
+usage() {
+  echo "$progname <instance name>"
+}
+create_file_layout(){
+  echo "creating file layout in $base ..."
+  mkdir -p $base/bin $base/conf $base/lib $base/logs $base/temp $base/webapps
+}
+
+generate_conf(){
+  echo "generating $instance profile ..."
+  cat ~/.tomcat/share/instance.conf | sed -e "s/@INSTANCE@/${instance}/g" > ~/.tomcat/etc/conf.d/${instance}.conf
+}
+
+generate_templates(){
+  echo "generating configuration templates for $instance ..."
+  cp -r $CATALINA_HOME/conf/* $base/conf/
+}
+create_file_layout
+generate_conf
+generate_templates
+
+
+
+

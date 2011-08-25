@@ -1,0 +1,26 @@
+#!/bin/sh
+
+
+check_one_instance(){
+  local instance=$1
+  . $HOME/.tomcat/etc/tomcatrc
+  . $HOME/.tomcat/etc/conf.d/${instance}.conf
+
+  if [ -f $CATALINA_PID ]; then
+    pid=`cat $CATALINA_PID`
+    ps -p $pid >/dev/null 2>&1
+    if [ $? -ne 0 ]; then
+       echo "$instance is not running"
+    else
+       echo "$instance ($pid) is running"
+    fi
+  else
+    echo "$instance is not running"
+  fi
+}
+
+if [ "$1" != "" ]; then
+ check_one_instance $1 
+else
+  echo "not yet done"
+fi

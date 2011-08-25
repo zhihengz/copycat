@@ -1,0 +1,8 @@
+#!/bin/sh
+
+instance=$1
+
+. $HOME/.tomcat/etc/tomcatrc
+. $HOME/.tomcat/etc/conf.d/${instance}.conf
+
+${CATALINA_HOME}/bin/startup.sh

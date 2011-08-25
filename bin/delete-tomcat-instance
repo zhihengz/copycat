@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. ~/.tomcat/etc/tomcatrc
+instance=$1
+base=${TC_INSTANCE_BASE}/$instance
+
+if [ -d $base ]; then
+  ~/.tomcat/bin/stop-tomcat-instance ${instance}
+  rm -fr $base
+  rm -fr ~/.tomcat/etc/conf.d/${instance}.conf
+  echo "deleted $instance"
+else
+  echo "nothing to delete"
+fi 

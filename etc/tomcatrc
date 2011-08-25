@@ -1,0 +1,4 @@
+# general tomcat envrionment
+export CATALINA_HOME=/usr/local/tomcat6
+export JAVA_HOME=/usr/local/jdk-latest
+export TC_INSTANCE_BASE=$HOME/local/tomcat-instances
